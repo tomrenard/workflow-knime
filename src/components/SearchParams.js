@@ -22,7 +22,6 @@ export default function SearchParams({ nodes }) {
   useEffect(() => {
     detectInput();
   }, [nodesList]);
-  console.log(isShown);
   return (
     <>
       <div>
