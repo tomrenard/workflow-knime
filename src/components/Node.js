@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const NodeStyle = styled.div`
+const NodeStyle = styled.li`
   width: 70px;
   height: 70px;
   background-color: red;
   text-align: center;
   padding: 1rem;
+  margin: 1rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
