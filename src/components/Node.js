@@ -9,16 +9,12 @@ const NodeStyle = styled.div`
 `;
 
 // eslint-disable-next-line react/prop-types
-export default function Node({ name }) {
-  const [display, setDisplay] = useState(true);
-  function handleClick() {
-    setDisplay(false);
-  }
+export default function Node({ name, display }) {
   return (
     <>
     {display ? 
     <NodeStyle>
-      <span onClick={handleClick}>x</span>
+      <span>x</span>
       <p>{name}</p>
     </NodeStyle>
     :

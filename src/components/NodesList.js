@@ -2,14 +2,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function NodesList({ nodesList = [] }) {
+export default function NodesList({ nodesList = [], displayed }) {
   return (
     <>
-      {nodesList.map((node) => {
+      {nodesList.map((node, index) => {
         if (node) {
           return (
             <div key={node.name}>
-              <button >+</button>
+              <button id={node.id} onClick={() => displayed(index)}>+</button>
               <h1>{node.name}</h1>
             </div>
           );

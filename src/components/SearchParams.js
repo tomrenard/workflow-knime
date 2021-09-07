@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import NodesList from "./NodesList";
 
-export default function SearchParams({ nodes, modifyObject }) {
+export default function SearchParams({ nodes, displayed }) {
   const [input, setInput] = useState('');
   const [nodesList, setNodesList] = useState();
   const [isShown, setIsShown] = useState(false);
@@ -29,7 +29,7 @@ export default function SearchParams({ nodes, modifyObject }) {
         <input value={input} placeholder="Add a new node" onChange={updateInput} />
       </div>
       {isShown ? 
-      <NodesList modifyObject={modifyObject} nodesList={nodesList} />
+      <NodesList displayed={displayed} nodesList={nodesList} />
       :
       null
       }

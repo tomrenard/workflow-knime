@@ -7,7 +7,7 @@ export default function Nodes({nodes}) {
   return (
     <>
       { nodes.map((node) => {
-       return <Node key={node.name} name={node.name} />
+       return <Node key={node.name} display={node.display} name={node.name} />
       }) }
     </>
   )

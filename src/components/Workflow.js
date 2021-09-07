@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
 import styled from "styled-components";
 import SearchParams from "./SearchParams";
 import PropTypes from "prop-types";
@@ -17,13 +18,20 @@ const WorkflowDivStyles = styled.div`
 `;
 
 export default function Workflow({ nodes }) {
+  const [displayNodes, setDisplayNodes] = useState(nodes);
+  function displayed(index) {
+    const newNodes = [...displayNodes];
+    newNodes[index].display = true;
+    setDisplayNodes(newNodes);
+    console.log(displayNodes);
+  }
   return (
     <WorkflowSectionStyles>
       <WorkflowDivStyles>
         <div>
           <h1>Workflow</h1>
         </div>
-        <SearchParams nodes={nodes} />
+        <SearchParams displayed={displayed} nodes={nodes} />
       </WorkflowDivStyles>
       <Canva nodes={nodes} />
     </WorkflowSectionStyles>

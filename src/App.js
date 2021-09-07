@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import GlobalStyles from "./styles/GlobalStyles";
 import Workflow from "./components/Workflow";
-import nodes from "./data/nodes";
+import data from "./data/data";
 
 function App() {
+  const [nodes] = useState(data);
   return (
     <>
       <GlobalStyles />
