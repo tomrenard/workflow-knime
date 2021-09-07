@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import PropTypes from "prop-types";
 
@@ -8,6 +9,7 @@ export default function NodesList({ nodesList = [] }) {
         if (node) {
           return (
             <div key={node.name}>
+              <button >+</button>
               <h1>{node.name}</h1>
             </div>
           );

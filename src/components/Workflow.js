@@ -2,15 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import SearchParams from "./SearchParams";
 import PropTypes from "prop-types";
+import Canva from "./Canva";
 
 const WorkflowSectionStyles = styled.section`
-  max-width: 700px;
-  max-height: 700px;
+  max-width: 800px;
+  max-height: 800px;
   margin: 4rem auto;
+  border: 6px solid gold;
+
 `;
 
 const WorkflowDivStyles = styled.div`
-  border: 6px solid gold;
   text-align: center;
 `;
 
@@ -23,6 +25,7 @@ export default function Workflow({ nodes }) {
         </div>
         <SearchParams nodes={nodes} />
       </WorkflowDivStyles>
+      <Canva nodes={nodes} />
     </WorkflowSectionStyles>
   );
 }

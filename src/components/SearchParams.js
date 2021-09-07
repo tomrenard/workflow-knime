@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import NodesList from "./NodesList";
 
-export default function SearchParams({ nodes }) {
+export default function SearchParams({ nodes, modifyObject }) {
   const [input, setInput] = useState('');
   const [nodesList, setNodesList] = useState();
   const [isShown, setIsShown] = useState(false);
@@ -28,7 +29,7 @@ export default function SearchParams({ nodes }) {
         <input value={input} placeholder="Add a new node" onChange={updateInput} />
       </div>
       {isShown ? 
-      <NodesList nodesList={nodesList} />
+      <NodesList modifyObject={modifyObject} nodesList={nodesList} />
       :
       null
       }
