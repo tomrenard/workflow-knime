@@ -9,7 +9,9 @@ export default function NodesList({ nodesList = [], displayed }) {
         if (node && node.display === false) {
           return (
             <div key={node.name}>
-              <button id={node.id} onClick={() => displayed(index)}>+</button>
+              <button id={node.id} onClick={() => displayed(index)}>
+                +
+              </button>
               <h1>{node.name}</h1>
             </div>
           );

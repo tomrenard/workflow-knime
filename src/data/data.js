@@ -17,7 +17,7 @@ const data = [
   },
   {
     name: "Cluster Assigner",
-    color: "orange",
+    color: "red",
     type: "source",
     entry: 3,
     display: false,
@@ -25,7 +25,7 @@ const data = [
   },
   {
     name: "Node test 2",
-    color: "blue",
+    color: "lightblue",
     type: "test",
     entry: 1,
     display: false,
@@ -37,7 +37,7 @@ const data = [
     type: "test",
     entry: 3,
     display: false,
-    id: "node-test-2",
+    id: "node-test-3",
   },
 ];
 

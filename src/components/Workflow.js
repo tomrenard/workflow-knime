@@ -10,7 +10,6 @@ const WorkflowSectionStyles = styled.section`
   max-height: 800px;
   margin: 4rem auto;
   border: 6px solid gold;
-
 `;
 
 const WorkflowDivStyles = styled.div`
@@ -26,10 +25,9 @@ export default function Workflow({ nodes }) {
   }
   function undisplayed(id) {
     const newNodes = [...displayNodes];
-    newNodes.filter(el => {
-      return el.id === id ? el.display = false : null;
-     })
-    // newNodes[index].display = false;
+    newNodes.filter((el) => {
+      return el.id === id ? (el.display = false) : null;
+    });
     setDisplayNodes(newNodes);
   }
   return (

@@ -1,20 +1,19 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import styled from 'styled-components';
-import Nodes from './Nodes';
+import React from "react";
+import styled from "styled-components";
+import Nodes from "./Nodes";
 
 const CanvaSectionStyles = styled.section`
   background: lightgrey;
   min-height: 100px;
   margin: 1rem;
-  
 `;
 
 const CanvaStyles = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 100px;
+  height: 200px;
   border: 2px solid red;
 `;
 
@@ -22,8 +21,8 @@ export default function Canva({ nodes, undisplayed }) {
   return (
     <CanvaSectionStyles>
       <CanvaStyles>
-        <Nodes undisplayed={undisplayed} nodes={nodes}/>
+        <Nodes undisplayed={undisplayed} nodes={nodes} />
       </CanvaStyles>
     </CanvaSectionStyles>
-  )
+  );
 }

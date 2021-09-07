@@ -4,21 +4,21 @@ import PropTypes from "prop-types";
 import NodesList from "./NodesList";
 
 export default function SearchParams({ nodes, displayed, undisplayed }) {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [nodesList, setNodesList] = useState();
   const [isShown, setIsShown] = useState(false);
 
   const detectInput = () => {
     input ? setIsShown(true) : setIsShown(false);
-  }
+  };
 
   const updateInput = (e) => {
-    const filtered = nodes.filter(node => {
-      return node.name.toLowerCase().includes(input.toLowerCase())
-    })
+    const filtered = nodes.filter((node) => {
+      return node.name.toLowerCase().includes(input.toLowerCase());
+    });
     setInput(e.target.value);
     setNodesList(filtered);
-  }  
+  };
 
   useEffect(() => {
     detectInput();
@@ -26,13 +26,15 @@ export default function SearchParams({ nodes, displayed, undisplayed }) {
   return (
     <>
       <div>
-        <input value={input} placeholder="Add a new node" onChange={updateInput} />
+        <input
+          value={input}
+          placeholder="Add a new node"
+          onChange={updateInput}
+        />
       </div>
-      {isShown ? 
-      <NodesList displayed={displayed} nodesList={nodesList} />
-      :
-      null
-      }
+      {isShown ? (
+        <NodesList displayed={displayed} nodesList={nodesList} />
+      ) : null}
     </>
   );
 }
