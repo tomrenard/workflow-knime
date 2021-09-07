@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import NodesList from "./NodesList";
 
-export default function SearchParams({ nodes, displayed }) {
+export default function SearchParams({ nodes, displayed, undisplayed }) {
   const [input, setInput] = useState('');
   const [nodesList, setNodesList] = useState();
   const [isShown, setIsShown] = useState(false);

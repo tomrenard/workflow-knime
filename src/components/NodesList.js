@@ -6,7 +6,7 @@ export default function NodesList({ nodesList = [], displayed }) {
   return (
     <>
       {nodesList.map((node, index) => {
-        if (node) {
+        if (node && node.display === false) {
           return (
             <div key={node.name}>
               <button id={node.id} onClick={() => displayed(index)}>+</button>

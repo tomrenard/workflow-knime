@@ -18,11 +18,11 @@ const CanvaStyles = styled.div`
   border: 2px solid red;
 `;
 
-export default function Canva({ nodes }) {
+export default function Canva({ nodes, undisplayed }) {
   return (
     <CanvaSectionStyles>
       <CanvaStyles>
-        <Nodes nodes={nodes}/>
+        <Nodes undisplayed={undisplayed} nodes={nodes}/>
       </CanvaStyles>
     </CanvaSectionStyles>
   )

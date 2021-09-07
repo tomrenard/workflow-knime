@@ -23,7 +23,14 @@ export default function Workflow({ nodes }) {
     const newNodes = [...displayNodes];
     newNodes[index].display = true;
     setDisplayNodes(newNodes);
-    console.log(displayNodes);
+  }
+  function undisplayed(id) {
+    const newNodes = [...displayNodes];
+    newNodes.filter(el => {
+      return el.id === id ? el.display = false : null;
+     })
+    // newNodes[index].display = false;
+    setDisplayNodes(newNodes);
   }
   return (
     <WorkflowSectionStyles>
@@ -33,7 +40,7 @@ export default function Workflow({ nodes }) {
         </div>
         <SearchParams displayed={displayed} nodes={nodes} />
       </WorkflowDivStyles>
-      <Canva nodes={nodes} />
+      <Canva undisplayed={undisplayed} nodes={nodes} />
     </WorkflowSectionStyles>
   );
 }
