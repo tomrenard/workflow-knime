@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import NodesStyles from "../styles/NodesStyles";
+import ErrorBoundary from "./ErrorBoundary";
 
 const initialDnDState = {
   draggedFrom: null,
@@ -82,7 +83,7 @@ export default function Nodes({ nodes, removeNode }) {
   }
 
   function onDragLeave() {
-    // This function will be call when an element is moved out of a drop target, we need to set up the draggedTo to a 'null' value to avoir errors
+    // This function will be call when an element is moved out of a drop target, we need to set up the draggedTo to a 'null' value to avoid errors
     setDragAndDrop({
       ...dragAndDrop,
       draggedTo: null,
@@ -93,43 +94,47 @@ export default function Nodes({ nodes, removeNode }) {
   // Adding some CSS transitions would be important to improve the UI when an node is dragged and dropped
 
   return (
-    <NodesStyles>
-      {list.map((node, index) => {
-        return (
-          <div key={node.id}>
-            {node.display ? (
-              // We could create an specific file for the node component to increase file readibility
-              // We should implement the arrows connection using a dedicated component, and saving a state status into our node using useState, to check if the connection is linked or not
-              <li
-                key={`${node.id}-${index}`}
-                data-position={index}
-                draggable
-                onDragStart={onDragStart}
-                onDragOver={onDragOver}
-                onDrop={onDrop}
-                onDragLeave={onDragLeave}
-              >
-                <p>{node.name}</p>
-                <div style={{ display: "flex" }}>
-                  <div
-                    style={{ backgroundColor: node.color }}
-                    className="icon-container"
-                  >
-                    <button onClick={() => removeNode(node.id)}>x</button>
+    <ErrorBoundary>
+      <NodesStyles>
+        {list?.map((node, index) => {
+          return (
+            <div key={node.id}>
+              {node?.display ? (
+                // We could create an specific file for the node li component to increase file readibility
+                // We should implement the arrows connection using a dedicated component, and saving a state status into our node using useState, to check if the connection is linked or not
+                <li
+                  key={`${node.id}-${index}`}
+                  data-position={index}
+                  draggable
+                  onDragStart={onDragStart}
+                  onDragOver={onDragOver}
+                  onDrop={onDrop}
+                  onDragLeave={onDragLeave}
+                >
+                  <p data-testid="node-test">{node.name}</p>
+                  <div style={{ display: "flex" }}>
+                    <div
+                      style={{ backgroundColor: node.color }}
+                      className="icon-container"
+                    >
+                      <button onClick={() => removeNode(node.id)}>x</button>
+                    </div>
+                    <div>
+                      <div className="triangle"></div>
+                      {node.output > 1 ? (
+                        <div className="triangle"></div>
+                      ) : null}
+                    </div>
                   </div>
-                  <div>
-                    <div className="triangle"></div>
-                    {node.output > 1 ? <div className="triangle"></div> : null}
+                  <div className="source-container">
+                    <p>{node.type}</p>
                   </div>
-                </div>
-                <div className="source-container">
-                  <p>{node.type}</p>
-                </div>
-              </li>
-            ) : null}
-          </div>
-        );
-      })}
-    </NodesStyles>
+                </li>
+              ) : null}
+            </div>
+          );
+        })}
+      </NodesStyles>
+    </ErrorBoundary>
   );
 }

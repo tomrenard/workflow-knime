@@ -30,6 +30,7 @@ export default function SearchParams({ nodes, addNode }) {
   useEffect(() => {
     detectInput();
   }, [nodesList]);
+  // Would be better for the UX to add the new node at the end of the ul and not regarding the previous array order, for that we need to mutate our state with the new array order each time the component re-renders
   return (
     <>
       <SearchParamsStyles>

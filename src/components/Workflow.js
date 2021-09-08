@@ -22,10 +22,11 @@ const WorkflowDivStyles = styled.div`
 
 export default function Workflow({ nodes }) {
   const [displayNodes, setDisplayNodes] = useState(nodes);
-  function addNode(index) {
-    // Would be ideal to be consistent and to use the id instead of the index there, to avoid adding wrong node because of reordering
+  function addNode(id) {
     const newNodes = [...displayNodes];
-    newNodes[index].display = true;
+    newNodes.filter((el) => {
+      return el.id === id ? (el.display = true) : null;
+    });
     setDisplayNodes(newNodes);
   }
   function removeNode(id) {
