@@ -5,7 +5,6 @@ import NodesList from "./NodesList";
 const SearchParamsStyles = styled.div`
   display: flex;
   input {
-    width: 100%;
   }
 `;
 

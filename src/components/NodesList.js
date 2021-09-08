@@ -7,6 +7,7 @@ const NodesListLiStyles = styled.li`
   justify-content: flex-start;
   .list-li-node {
     display: flex;
+    padding-right: 1rem;
     button {
       border: none;
       font-size: 1.3rem;
@@ -27,8 +28,9 @@ export default function NodesList({ nodesList = [], addNode }) {
   return (
     <div
       style={{
+        backgroundColor: 'white',
         boxShadow:
-          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px", position: 'absolute'
       }}
     >
       {nodesList?.map((node, index) => {
