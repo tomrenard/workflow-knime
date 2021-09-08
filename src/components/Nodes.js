@@ -111,7 +111,7 @@ export default function Nodes({ nodes, removeNode }) {
                   onDrop={onDrop}
                   onDragLeave={onDragLeave}
                 >
-                  <p data-testid="node-test">{node.name}</p>
+                  <p data-testid="node-test-name">{node.name}</p>
                   <div style={{ display: "flex" }}>
                     <div
                       style={{ backgroundColor: node.color }}
@@ -127,7 +127,7 @@ export default function Nodes({ nodes, removeNode }) {
                     </div>
                   </div>
                   <div className="source-container">
-                    <p>{node.type}</p>
+                    <p data-testid="node-test-type">{node.type}</p>
                   </div>
                 </li>
               ) : null}

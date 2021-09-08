@@ -1,9 +1,9 @@
-import React from 'react';
-import { expect, it, describe } from '@jest/globals';
+import React from "react";
+import { expect, test } from "@jest/globals";
 import { render } from "@testing-library/react";
-import Nodes from '../components/Nodes';
+import Nodes from "../components/Nodes";
 
-const nodes = [
+const data = [
   {
     name: "Data Generator",
     color: "orange",
@@ -14,10 +14,14 @@ const nodes = [
   },
 ];
 
-describe("<Nodes />", () => {
-  it("contains name", () => {
-    const wrapper = render(<Nodes nodes={nodes} />);
-    const value = wrapper.findByTestId("node-test");
-    expect(value).toContain(nodes[0].name);
-  });
+test("it should accept a node as props and display object's name", async () => {
+  const nodes = render(<Nodes nodes={data} />);
+  const nameComponent = await nodes.findByTestId("node-test-name");
+  expect(nameComponent.textContent).toContain(data[0].name);
+});
+
+test("it should accept a node as props and display object's type", async () => {
+  const nodes = render(<Nodes nodes={data} />);
+  const typeComponent = await nodes.findByTestId("node-test-type");
+  expect(typeComponent.textContent).toContain(data[0].type);
 });
