@@ -1,9 +1,15 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import styled from "styled-components";
 import NodesList from "./NodesList";
 
-export default function SearchParams({ nodes, displayed, undisplayed }) {
+const SearchParamsStyles = styled.div`
+  display: flex;
+  input {
+    width: 100%;
+  }
+`;
+
+export default function SearchParams({ nodes, addNode }) {
   const [input, setInput] = useState("");
   const [nodesList, setNodesList] = useState();
   const [isShown, setIsShown] = useState(false);
@@ -13,6 +19,7 @@ export default function SearchParams({ nodes, displayed, undisplayed }) {
   };
 
   const updateInput = (e) => {
+    // I'm not sure if this one is really scalable, implementing regEx for example could be an idea
     const filtered = nodes.filter((node) => {
       return node.name.toLowerCase().includes(input.toLowerCase());
     });
@@ -25,20 +32,14 @@ export default function SearchParams({ nodes, displayed, undisplayed }) {
   }, [nodesList]);
   return (
     <>
-      <div>
+      <SearchParamsStyles>
         <input
           value={input}
           placeholder="Add a new node"
           onChange={updateInput}
         />
-      </div>
-      {isShown ? (
-        <NodesList displayed={displayed} nodesList={nodesList} />
-      ) : null}
+      </SearchParamsStyles>
+      {isShown ? <NodesList addNode={addNode} nodesList={nodesList} /> : null}
     </>
   );
 }
-
-SearchParams.propTypes = {
-  nodes: PropTypes.array,
-};

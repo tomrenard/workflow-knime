@@ -1,29 +1,34 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import styled from "styled-components";
 import SearchParams from "./SearchParams";
-import PropTypes from "prop-types";
 import Canva from "./Canva";
 
 const WorkflowSectionStyles = styled.section`
   max-width: 800px;
   max-height: 800px;
   margin: 4rem auto;
-  border: 6px solid gold;
+  border: 6px solid black;
+  background-color: white;
 `;
 
 const WorkflowDivStyles = styled.div`
   text-align: center;
+  padding: 1rem;
+  h1 {
+    text-transform: uppercase;
+    padding: 1rem;
+  }
 `;
 
 export default function Workflow({ nodes }) {
   const [displayNodes, setDisplayNodes] = useState(nodes);
-  function displayed(index) {
+  function addNode(index) {
+    // Would be ideal to be consistent and to use the id instead of the index there, to avoid adding wrong node because of reordering
     const newNodes = [...displayNodes];
     newNodes[index].display = true;
     setDisplayNodes(newNodes);
   }
-  function undisplayed(id) {
+  function removeNode(id) {
     const newNodes = [...displayNodes];
     newNodes.filter((el) => {
       return el.id === id ? (el.display = false) : null;
@@ -36,13 +41,9 @@ export default function Workflow({ nodes }) {
         <div>
           <h1>Workflow</h1>
         </div>
-        <SearchParams displayed={displayed} nodes={nodes} />
+        <SearchParams addNode={addNode} nodes={displayNodes} />
       </WorkflowDivStyles>
-      <Canva undisplayed={undisplayed} nodes={nodes} />
+      <Canva removeNode={removeNode} nodes={displayNodes} />
     </WorkflowSectionStyles>
   );
 }
-
-Workflow.propTypes = {
-  nodes: PropTypes.array,
-};
