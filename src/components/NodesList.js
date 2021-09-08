@@ -25,17 +25,22 @@ const NodesListLiStyles = styled.li`
 
 export default function NodesList({ nodesList = [], addNode }) {
   return (
-    <div style={{boxShadow: 'rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px'}}>
+    <div
+      style={{
+        boxShadow:
+          "rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px",
+      }}
+    >
       {nodesList.map((node, index) => {
         if (node && node.display === false) {
           return (
             // It would be a good UX improvement to display a little icon of the node here
             <NodesListLiStyles key={node.name}>
               <div className="list-li-node">
-              <button id={node.id} onClick={() => addNode(index)}>
-                +
-              </button>
-              <p>{node.name}</p>
+                <button id={node.id} onClick={() => addNode(index)}>
+                  +
+                </button>
+                <p>{node.name}</p>
               </div>
             </NodesListLiStyles>
           );

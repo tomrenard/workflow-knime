@@ -1,51 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-
-const NodesListStyles = styled.ul`
-  display: flex;
-  justify-content: center;
-  padding: 0;
-  margin: 1rem;
-  @media (max-width: 740px) {
-    flex-direction: column;
-  }
-  li {
-    button {
-    border: 1px solid black;
-    border-radius: 25%25%;
-    background-color: transparent;
-    &:hover {
-      background-color: red;
-      color: white;
-      border: 1px solid red;
-    }
-  }
-    margin: 1rem;
-    p {
-      font-size: 0.8rem;
-    }
-    .icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90px;
-    height: 90px;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-    }
-    .triangle {
-      width: 0;
-      height: 0;
-      margin-bottom: 1rem;
-      border-style: solid;
-      border-width: 10px 0 10px 20px;
-      border-color: transparent transparent transparent #000000;
-    }
-  }
-  .source-container {
-    text-align: left;
-    padding-left: 1rem;
-  }
-`;
+import NodesStyles from "../styles/NodesStyles";
 
 const initialDnDState = {
   draggedFrom: null,
@@ -59,49 +13,66 @@ export default function Nodes({ nodes, removeNode }) {
   const [list, setList] = useState(nodes);
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState);
   // We could extract the drag and drop feature logic in an external file, to increase readibilty, this file is getting a bit longer
-  // I decided to use old function syntax, I found it more readible on longer file, to avoid confusion between variables and functions
+  // I'm gonna comment this section along the way as it was the most challenging part as it was my first DnD implementation
+  // So in order to implement this feature I decided to use React Hooks 'useState' and the browser API Drag and Drop (cf MDN)
   function onDragStart(event) {
+    // This function will receive a DragEvent (same properties as MouseEvent, so we can access the element via event.currentTarget)
+    // We access the data-position attribute just below
     const initialPosition = Number(event.currentTarget.dataset.position);
     setDragAndDrop({
+      // I'm spreading the properties from the previous state in order to update my new state with all the properties even the ones not updated
       ...dragAndDrop,
+      // Then we're setting draggedForm position
       draggedFrom: initialPosition,
       isDragging: true,
+      // And we store the current state and order of our nodes
       originalOrder: list,
     });
-    // following line is needed for firefox browser
+    // following line is needed for firefox browser, it seems that there are some compatibility issues with the Dnd API
     event.dataTransfer.setData("text/html", "");
   }
   function onDragOver(event) {
+    // This function receive a drag event too and we have to prevent the default behavior of if as it's cancelling out the drop by default
     event.preventDefault();
-
+    // We store our nodes in this variable
     let newList = dragAndDrop.originalOrder;
 
+    // Here we're getting the index of the item dragged
     const draggedFrom = dragAndDrop.draggedFrom;
 
+    // Then we're getting the index of the item being hovered where we want to put the node
     const draggedTo = Number(event.currentTarget.dataset.position);
 
+    // We're grabbing the element that we want to drag
     const itemDragged = newList[draggedFrom];
+
+    // We're filtering our list to get all our nodes apart the dragged one
     const remainingItems = newList.filter(
       (item, index) => index !== draggedFrom
     );
 
+    // After we have to update our list of nodes in consequence
     newList = [
       ...remainingItems.slice(0, draggedTo),
       itemDragged,
       ...remainingItems.slice(draggedTo),
     ];
 
+    // Here we check if the targets are different as the event is firing at multiple times
     if (draggedTo !== dragAndDrop.draggedTo) {
       setDragAndDrop({
         ...dragAndDrop,
+        // Last step here is to save the new order of our arrays of nodes
         updatedOrder: newList,
         draggedTo: draggedTo,
       });
     }
   }
   function onDrop(event) {
+    // Below we're updating the new state of our nodes list
     setList(dragAndDrop.updatedOrder);
 
+    // and resetting to the inital state
     setDragAndDrop({
       ...dragAndDrop,
       draggedFrom: null,
@@ -111,13 +82,18 @@ export default function Nodes({ nodes, removeNode }) {
   }
 
   function onDragLeave() {
+    // This function will be call when an element is moved out of a drop target, we need to set up the draggedTo to a 'null' value to avoir errors
     setDragAndDrop({
       ...dragAndDrop,
       draggedTo: null,
     });
   }
+  // To resume, we could improve this feature regarding the browser compatibility and maybe adapt the type of event we're using in consequence (mouseEvent for mobile for instance)
+  // We could store our currentState in the localStorage to avoid users to loose the current order if they refresh their tab
+  // Adding some CSS transitions would be important to improve the UI when an node is dragged and dropped
+
   return (
-    <NodesListStyles>
+    <NodesStyles>
       {list.map((node, index) => {
         return (
           <div key={node.id}>
@@ -125,11 +101,6 @@ export default function Nodes({ nodes, removeNode }) {
               // We could create an specific file for the node component to increase file readibility
               // We should implement the arrows connection using a dedicated component, and saving a state status into our node using useState, to check if the connection is linked or not
               <li
-                className={
-                  dragAndDrop && dragAndDrop.draggedTo === Number(index)
-                    ? "dropArea"
-                    : ""
-                }
                 key={`${node.id}-${index}`}
                 data-position={index}
                 draggable
@@ -139,25 +110,26 @@ export default function Nodes({ nodes, removeNode }) {
                 onDragLeave={onDragLeave}
               >
                 <p>{node.name}</p>
-                <div style={{display: 'flex'}}>
-                  <div style={{ backgroundColor: node.color }} className="icon-container"><button onClick={() => removeNode(node.id)}>x</button></div>
+                <div style={{ display: "flex" }}>
+                  <div
+                    style={{ backgroundColor: node.color }}
+                    className="icon-container"
+                  >
+                    <button onClick={() => removeNode(node.id)}>x</button>
+                  </div>
                   <div>
                     <div className="triangle"></div>
-                    {node.output > 1 ?
-                    <div className="triangle"></div>
-                    :
-                    null
-                    }
+                    {node.output > 1 ? <div className="triangle"></div> : null}
                   </div>
                 </div>
                 <div className="source-container">
-                  <p>{node.type}</p>  
+                  <p>{node.type}</p>
                 </div>
               </li>
             ) : null}
           </div>
         );
       })}
-    </NodesListStyles>
+    </NodesStyles>
   );
 }
