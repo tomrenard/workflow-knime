@@ -5,7 +5,6 @@ import Nodes from "./Nodes";
 
 const CanvaSectionStyles = styled.section`
   background: lightgrey;
-  min-height: 100px;
   margin: 1rem;
 `;
 
@@ -13,8 +12,8 @@ const CanvaStyles = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 200px;
   border: 2px solid red;
+  min-height: 300px;
 `;
 
 export default function Canva({ nodes, undisplayed }) {
