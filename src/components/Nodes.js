@@ -26,14 +26,14 @@ export default function Nodes({ nodes, removeNode }) {
       // Then we're setting draggedForm position
       draggedFrom: initialPosition,
       isDragging: true,
-      // And we store the current state and order of our nodes
+      // And we store the current state with the current order of our nodes array
       originalOrder: list,
     });
     // following line is needed for firefox browser, it seems that there are some compatibility issues with the Dnd API
     event.dataTransfer.setData("text/html", "");
   }
   function onDragOver(event) {
-    // This function receive a drag event too and we have to prevent the default behavior of if as it's cancelling out the drop by default
+    // This function receives a drag event too and we have to prevent the default behavior of cancelling out the drop
     event.preventDefault();
     // We store our nodes in this variable
     let newList = dragAndDrop.originalOrder;
@@ -63,7 +63,7 @@ export default function Nodes({ nodes, removeNode }) {
     if (draggedTo !== dragAndDrop.draggedTo) {
       setDragAndDrop({
         ...dragAndDrop,
-        // Last step here is to save the new order of our arrays of nodes
+        // Last step here is to save the new order of our array of nodes
         updatedOrder: newList,
         draggedTo: draggedTo,
       });
@@ -83,16 +83,15 @@ export default function Nodes({ nodes, removeNode }) {
   }
 
   function onDragLeave() {
-    // This function will be call when an element is moved out of a drop target, we need to set up the draggedTo to a 'null' value to avoid errors
+    // This function will be call when an element is moved out of a drop target
     setDragAndDrop({
       ...dragAndDrop,
       draggedTo: null,
     });
   }
   // To resume, we could improve this feature regarding the browser compatibility and maybe adapt the type of event we're using in consequence (mouseEvent for mobile for instance)
-  // We could store our currentState in the localStorage to avoid users to loose the current order if they refresh their tab
+  // We could store our current state in the localStorage to avoid users to lose the current order if they refresh their tab
   // Adding some CSS transitions would be important to improve the UI when an node is dragged and dropped
-
   return (
     <ErrorBoundary>
       <NodesStyles>
@@ -101,7 +100,7 @@ export default function Nodes({ nodes, removeNode }) {
             <div key={node.id}>
               {node?.display ? (
                 // We could create an specific file for the node li component to increase file readibility
-                // We should implement the arrows connection using a dedicated component, and saving a state status into our node using useState, to check if the connection is linked or not
+                // We should implement the arrows connection using a dedicated component, and saving a state status into our node using useState, to check if an arrow is linked or not
                 <li
                   key={`${node.id}-${index}`}
                   data-position={index}

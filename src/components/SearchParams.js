@@ -5,6 +5,9 @@ import NodesList from "./NodesList";
 const SearchParamsStyles = styled.div`
   display: flex;
   input {
+    border: 1px solid black;
+    padding: 1rem;
+    text-align: left;
   }
 `;
 
@@ -35,11 +38,14 @@ export default function SearchParams({ nodes, addNode }) {
       <SearchParamsStyles>
         <input
           value={input}
+          type="search"
           placeholder="Add a new node"
           onChange={updateInput}
         />
       </SearchParamsStyles>
-      {isShown ? <NodesList addNode={addNode} nodesList={nodesList} /> : null}
+      <div className="list-container">
+        {isShown ? <NodesList addNode={addNode} nodesList={nodesList} /> : null}
+      </div>
     </>
   );
 }

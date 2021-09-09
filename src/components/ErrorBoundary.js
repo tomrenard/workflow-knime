@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+// Please find here a common ErrorBoundary class component in React, it should encapsulate any component where we want to handle this kind of errors, and it will block the rendering if it fires
+
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
