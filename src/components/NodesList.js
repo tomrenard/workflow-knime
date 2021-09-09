@@ -35,7 +35,7 @@ const NodesListLiStyles = styled.li`
 export default function NodesList({ nodesList = [], addNode }) {
   return (
     <NodeListContainer>
-      {nodesList?.map((node, index) => {
+      {nodesList?.map((node) => {
         if (node && node?.display === false) {
           return (
             // It would be a good UX improvement to display a little icon of the node here
