@@ -5,7 +5,6 @@ import Canva from "./Canva";
 
 const WorkflowSectionStyles = styled.section`
   max-width: 800px;
-  max-height: 800px;
   margin: 4rem auto;
   border: 6px solid black;
   background-color: white;
